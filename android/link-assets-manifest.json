@@ -1,0 +1,21 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/DMSerifDisplay-Italic.ttf",
+      "sha1": "ebfa39e71429e48cb35906620f4c98cd69be925b"
+    },
+    {
+      "path": "assets/fonts/DMSerifDisplay-Regular.ttf",
+      "sha1": "52571de962e2d8f26c20406d2400ec77676001b2"
+    },
+    {
+      "path": "assets/fonts/FredokaOne-Regular.ttf",
+      "sha1": "c4377bea37b4f84e6d2183741664025d5cecef3e"
+    },
+    {
+      "path": "assets/fonts/PatuaOne-Regular.ttf",
+      "sha1": "d9c0328bc6188860c9bfa1d67e2f53fd64f49bfb"
+    }
+  ]
+}
