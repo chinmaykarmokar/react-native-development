@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+
+// Import react-native components
 import { SafeAreaView, StyleSheet, Text, View, Button, TextInput } from "react-native";
 
 // Import Navigation Container
@@ -12,6 +14,10 @@ import LandingPageComponent from "./components/landingPageComponent";
 import AboutPageComponent from "./components/aboutComponent";
 import DeliveryPersonRegisterPage from "./pages/deliveryPersonRegisterPage";
 import CustomerRegisterPage from "./pages/customerRegisterPage";
+
+// Integrate React Redux
+import { Provider } from "react-redux";
+import Store from "./state/store/store";
 
 const App: React.FC = () => {
 //   const [name, setName] = useState("Chinmay");
@@ -27,61 +33,63 @@ const App: React.FC = () => {
 //   }
 
 	return (
-		<View style = {styles.body}>
-			<NavigationContainer independent = {true}>
-				<Stack.Navigator
-					screenOptions = {{
-						contentStyle: {backgroundColor: "beige"}
-					}}
-				>
-					<Stack.Screen
-						name = "Landing Page"
-						component = {LandingPageComponent}
-						options = {{
-							header: () => null
+		<Provider store = {Store}>
+			<View style = {styles.body}>
+				<NavigationContainer independent = {true}>
+					<Stack.Navigator
+						screenOptions = {{
+							contentStyle: {backgroundColor: "beige"}
 						}}
-					/>
-					<Stack.Screen
-						name = "Delivery Person Register"
-						component = {DeliveryPersonRegisterPage}
-						options = {{
-							header: () => null,
-							headerTitleStyle: {
-								fontFamily: "PatuaOne-Regular"
-							},
-							headerStyle: {
-								backgroundColor: "beige"
-							}
-						}}
-					/>
-					<Stack.Screen
-						name = "Customer Register"
-						component = {CustomerRegisterPage}
-						options = {{
-							header: () => null,
-							headerTitleStyle: {
-								fontFamily: "PatuaOne-Regular"
-							},
-							headerStyle: {
-								backgroundColor: "beige"
-							}
-						}}
-					/>
-					<Stack.Screen
-						name = "About"
-						component = {AboutPageComponent}
-						options = {{
-							headerTitleStyle: {
-								fontFamily: "PatuaOne-Regular"
-							},
-							headerStyle: {
-								backgroundColor: "beige"
-							}
-						}}
-					/>
-				</Stack.Navigator>
-			</NavigationContainer>
-		</View>
+					>
+						<Stack.Screen
+							name = "Landing Page"
+							component = {LandingPageComponent}
+							options = {{
+								header: () => null
+							}}
+						/>
+						<Stack.Screen
+							name = "Delivery Person Register"
+							component = {DeliveryPersonRegisterPage}
+							options = {{
+								header: () => null,
+								headerTitleStyle: {
+									fontFamily: "PatuaOne-Regular"
+								},
+								headerStyle: {
+									backgroundColor: "beige"
+								}
+							}}
+						/>
+						<Stack.Screen
+							name = "Customer Register"
+							component = {CustomerRegisterPage}
+							options = {{
+								header: () => null,
+								headerTitleStyle: {
+									fontFamily: "PatuaOne-Regular"
+								},
+								headerStyle: {
+									backgroundColor: "beige"
+								}
+							}}
+						/>
+						<Stack.Screen
+							name = "About"
+							component = {AboutPageComponent}
+							options = {{
+								headerTitleStyle: {
+									fontFamily: "PatuaOne-Regular"
+								},
+								headerStyle: {
+									backgroundColor: "beige"
+								}
+							}}
+						/>
+					</Stack.Navigator>
+				</NavigationContainer>
+			</View>
+		</Provider>
 	)
 }
 
