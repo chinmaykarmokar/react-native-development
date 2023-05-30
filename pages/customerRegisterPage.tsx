@@ -7,8 +7,8 @@ import { View } from "react-native";
 import LandingPageComponent from "../components/landingPageComponent";
 import AboutPageComponent from "../components/aboutComponent";
 import CustomerRegisterComponent from "../components/customerRegisterComponent";
+import CustomerLoginComponent from "../components/customerLoginComponent";
 import DeliveryPersonRegisterPage from "./deliveryPersonRegisterPage";
-// import DeliveryPersonLoginComponent from "../components/deliveryPersonLoginComponent";
 
 // Import Navigation Container
 import { NavigationContainer } from "@react-navigation/native";
@@ -47,8 +47,16 @@ const CustomerRegisterPage = () => {
                         }}
                     />
                     <Stack.Screen
-                        name = "Delivery Person Login"
-                        component = {CustomerRegisterComponent}
+                        name = "Customer Login"
+                        component = {CustomerLoginComponent}
+                        options = {{
+							headerTitleStyle: {
+								fontFamily: "PatuaOne-Regular"
+							},
+							headerStyle: {
+								backgroundColor: "beige"
+							}
+						}}
                     />
                     <Stack.Screen
                         name = "About"
