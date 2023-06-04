@@ -11,6 +11,13 @@ const customerReducers = (state = initialState, action: any) => {
                 customerRegisterData: action.payload,
                 loading: false
             }
+
+        case "customerLogin": 
+            return {
+                ... state,
+                customerLoginData: action.payload,
+                loading: false
+            }
             
         default: 
             return state    

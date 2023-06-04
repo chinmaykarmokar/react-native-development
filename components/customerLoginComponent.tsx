@@ -1,14 +1,101 @@
-// Import React
-import React from "react";
+// Import React and its hooks
+import React, { useState, useEffect } from "react";
 
 // Import react-native components
-import { ScrollView, View, Pressable, Text, TextInput, StyleSheet } from "react-native";
+import { Alert, ScrollView, View, Pressable, Text, TextInput, StyleSheet } from "react-native";
+
+// Import AsyncStorage
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// Import axios
+import axios from "axios";
+
+// Import actions
+import { customerLogin } from "../state/actions/customerActions";
+
+// Import Redux hooks
+import { useSelector, useDispatch } from "react-redux";
 
 // Import react-native vector icons
 import Icon from "react-native-vector-icons/FontAwesome5";
 import AntIcon from "react-native-vector-icons/AntDesign";
 
-const CustomerLoginComponent: React.FC = () => {
+const CustomerLoginComponent = ({navigation}) => {
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
+    const dispatch = useDispatch();
+
+    const changeEmailHandler = (email: any) => {
+        setEmail(email);
+    }
+
+    const changePasswordHandler = (password: any) => {
+        setPassword(password)
+    }
+
+    const customerLoginPayload = {
+        email: email,
+        password: password
+    }
+
+    const config = {
+        headers: {
+            "content-type": "application/json",
+            "Access-Control-ALlow-Origin": "*"
+        }
+    }
+
+    const customerLoginHandler = () => {
+        axios.post("https://burpger-1yxc.onrender.com/api/customers/customerLogin", customerLoginPayload, config)
+            .then(async (response) => {
+                if (!response?.data?.error) {
+                    try {
+                        await AsyncStorage.setItem("accessToken", response?.data?.accessToken);
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+
+                    Alert.alert("Login", "Login successful!", [
+                        {
+                            text: 'Cancel',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel'
+                        },
+                        {
+                            text: 'OK', 
+                            onPress: () => console.log('OK Pressed')
+                        }
+                    ])
+
+                    setTimeout(() => {
+                        navigation.navigate("Customer Home");
+                    },3000)
+
+                    dispatch(customerLogin(response));
+                }
+                else {
+                    Alert.alert("Login", `${response?.data?.error} :(`, [
+                        {
+                            text: 'Cancel',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel'
+                        },
+                        {
+                            text: 'OK', 
+                            onPress: () => console.log('OK Pressed')
+                        }
+                    ])
+
+                    setTimeout(() => {
+                        navigation.navigate("Customer Login");
+                    },3000)
+                }
+                // navigation.navigate("Customer Home")
+            })
+    }
+
     return (
         <ScrollView>
             <View style = {styles.brandHeaderView}>
@@ -18,16 +105,20 @@ const CustomerLoginComponent: React.FC = () => {
                 <Text style = {styles.formLabel}>Email ID</Text>
                 <TextInput
                     style = {styles.input}
+                    value = {email}
                     placeholder = "Email ID"
-                    keyboardType="email-address"
+                    keyboardType = "email-address"
+                    onChangeText = {changeEmailHandler}
                 />
                 <Text style = {styles.formLabel}>Password</Text>
                 <TextInput
                     style = {styles.input}
+                    value = {password}
                     placeholder = "Password"
-                    secureTextEntry={true}
+                    secureTextEntry = {true}
+                    onChangeText = {changePasswordHandler}
                 />
-                <Pressable style = {styles.loginButton}>
+                <Pressable style = {styles.loginButton} onPress = {() => {customerLoginHandler()}}>
                     <Text style = {styles.buttonText}>
                         <AntIcon name = "login" size = {20}/> Login
                     </Text>
