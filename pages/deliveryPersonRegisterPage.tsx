@@ -1,3 +1,4 @@
+// Import React
 import React from "react";
 
 // Import react-native components
@@ -49,6 +50,14 @@ const DeliveryPersonRegisterPage = () => {
                     <Stack.Screen
                         name = "Delivery Person Login"
                         component = {DeliveryPersonLoginComponent}
+                        options = {{
+                            headerTitleStyle: {
+                                fontFamily: "PatuaOne-Regular"
+                            },
+                            headerStyle: {
+                                backgroundColor: "beige"
+                            }
+                        }}
                     />
                     <Stack.Screen
                         name = "About"

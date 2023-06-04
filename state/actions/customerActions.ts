@@ -4,3 +4,10 @@ export const customerRegister = (data: any) => {
         payload: data
     }
 }
+
+export const customerLogin = (data: any) => {
+    return {
+        type: "customerLogin",
+        payload: data
+    }
+}

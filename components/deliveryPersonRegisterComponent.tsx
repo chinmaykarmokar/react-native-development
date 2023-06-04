@@ -1,12 +1,110 @@
-import React from "react";
+// Import React and its hooks
+import React, { useState, useEffect } from "react";
+
+// Import Redux hooks
+import { useSelector, useDispatch } from "react-redux";
+
+// Import actions
+import { deliveryPersonRegister } from "../state/actions/deliveryPersonActions";
+
+// Import Axios
+import axios from "axios";
 
 // Import react-native components
-import { ScrollView, View, Pressable, Text, TextInput, StyleSheet } from "react-native";
+import { Alert, ScrollView, View, Pressable, Text, TextInput, StyleSheet } from "react-native";
 
 // Import react-native vector icons
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const DeliveryPersonRegisterComponent: React.FC = ({navigation}) => {
+    const [name, setName] = useState();
+    const [mobile, setMobile] = useState();
+    const [aadhar, setAadhar] = useState();
+    const [status, setStatus] = useState("available");
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
+    const dispatch = useDispatch();
+
+    const changeNameHandler = (name: any) => {
+        setName(name);
+    }
+
+    const changeMobileHandler = (mobile: any) => {
+        setMobile(mobile);
+    } 
+
+    const changeAadharHandler = (aadhar: any) => {
+        setAadhar(aadhar);
+    }
+
+    const changeEmailHandler = (email: any) => {
+        setEmail(email);
+    }
+
+    const changePasswordHandler = (password: any) => {
+        setPassword(password);
+    }
+
+    const deliveryPersonRegisterPayload = {
+        name: name,
+        phone: mobile,
+        aadhar_no: aadhar,
+        status: status,
+        email: email,
+        password: password
+    }
+
+    const config = {
+        headers: {
+            "content-type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    }
+
+    console.log(deliveryPersonRegisterPayload);
+
+    const deliveryPersonRegisterHandler = () => {
+        axios.post("https://burpger-1yxc.onrender.com/api/delivery/deliveryPersonregister", deliveryPersonRegisterPayload, config)
+            .then((response: any) => {
+                if (response?.data?.message != `Delivery Person with the following email ${email} already exists.`) {
+                    Alert.alert("Congratulations!", "You have been registered!", [
+                        {
+                            text: 'Cancel',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel'
+                        },
+                        {
+                            text: 'OK', 
+                            onPress: () => console.log('OK Pressed')
+                        }
+                    ])
+        
+                    setTimeout(() => {
+                        navigation.navigate("Delivery Person Login");
+                    },3000)
+
+                    dispatch(deliveryPersonRegister(response));
+                }
+                else {
+                    Alert.alert("Problem!", "User by this email already exists", [
+                        {
+                            text: 'Cancel',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel'
+                        }, 
+                        {
+                            text: 'OK', 
+                            onPress: () => console.log('OK Pressed')
+                        }
+                    ])
+                    setTimeout(() => {
+                        navigation.navigate("Delivery Person Register");
+                    },3000)
+                }
+            })
+    }
+
     return (
         <ScrollView>           
             <Text style = {styles.navigatorText} onPress = {() => {navigation.navigate("Landing Page")}}>
@@ -32,33 +130,43 @@ const DeliveryPersonRegisterComponent: React.FC = ({navigation}) => {
                 <Text style = {styles.formLabel}>Name</Text>
                 <TextInput
                     style = {styles.input}
+                    defaultValue = {name}
                     placeholder = "Name"
+                    onChangeText = {changeNameHandler}
                 />
                 <Text style = {styles.formLabel}>Mobile Number</Text>
                 <TextInput
                     style = {styles.input}
+                    defaultValue = {mobile}
                     placeholder = "Mobile Number"
                     keyboardType="phone-pad"
+                    onChangeText = {changeMobileHandler}
                 />
                 <Text style = {styles.formLabel}>Aadhar Number</Text>
                 <TextInput
                     style = {styles.input}
+                    defaultValue = {aadhar}
                     placeholder = "Aadhar Number"
                     keyboardType="phone-pad"
+                    onChangeText = {changeAadharHandler}
                 />
                 <Text style = {styles.formLabel}>Email ID</Text>
                 <TextInput
                     style = {styles.input}
+                    defaultValue = {email}
                     placeholder = "Email ID"
                     keyboardType="email-address"
+                    onChangeText = {changeEmailHandler}
                 />
                 <Text style = {styles.formLabel}>Password</Text>
                 <TextInput
                     style = {styles.input}
+                    defaultValue = {password}
                     placeholder = "Password"
                     secureTextEntry={true}
+                    onChangeText = {changePasswordHandler}
                 />
-                <Pressable style = {styles.registerButton}>
+                <Pressable style = {styles.registerButton} onPress = {() => {deliveryPersonRegisterHandler()}}>
                     <Text style = {styles.buttonText}>
                         <Icon name = "pen-nib" size = {20}/> Register
                     </Text>

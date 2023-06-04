@@ -8,6 +8,7 @@ import LandingPageComponent from "../components/landingPageComponent";
 import AboutPageComponent from "../components/aboutComponent";
 import CustomerRegisterComponent from "../components/customerRegisterComponent";
 import CustomerLoginComponent from "../components/customerLoginComponent";
+import CustomerHomePage from "./customerHomePage";
 import DeliveryPersonRegisterPage from "./deliveryPersonRegisterPage";
 
 // Import Navigation Container
@@ -69,6 +70,10 @@ const CustomerRegisterPage = () => {
 								backgroundColor: "beige"
 							}
 						}}
+                    />
+                    <Stack.Screen
+                        name = "Customer Home"
+                        component = {CustomerHomePage}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
