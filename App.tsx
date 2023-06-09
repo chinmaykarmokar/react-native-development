@@ -10,10 +10,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const Stack = createNativeStackNavigator();
 
 // Import components
-import LandingPageComponent from "./components/landingPageComponent";
-import AboutPageComponent from "./components/aboutComponent";
-import DeliveryPersonRegisterPage from "./pages/deliveryPersonRegisterPage";
-import CustomerRegisterPage from "./pages/customerRegisterPage";
+import LandingPageComponent from "./src/components/landingPageComponent";
+import AboutPageComponent from "./src/components/aboutComponent";
+import DeliveryPersonRegisterPage from "./src/pages/deliveryPersonRegisterPage";
+import CustomerRegisterPage from "./src/pages/customerRegisterPage";
 
 // Integrate React Redux
 import { Provider } from "react-redux";

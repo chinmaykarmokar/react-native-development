@@ -1,4 +1,3 @@
-// Import React
 import React from "react";
 
 // Import react-native components
@@ -7,9 +6,11 @@ import { View } from "react-native";
 // Import components
 import LandingPageComponent from "../components/landingPageComponent";
 import AboutPageComponent from "../components/aboutComponent";
+import CustomerRegisterComponent from "../components/customerRegisterComponent";
+import CustomerLoginComponent from "../components/customerLoginComponent";
+import CustomerHomePage from "./customerHomePage";
+// import DeliveryPersonRegisterPage from "./deliveryPersonRegisterPage";
 import DeliveryPersonRegisterComponent from "../components/deliveryPersonRegisterComponent";
-import DeliveryPersonLoginComponent from "../components/deliveryPersonLoginComponent";
-import CustomerRegisterPage from "./customerRegisterPage";
 
 // Import Navigation Container
 import { NavigationContainer } from "@react-navigation/native";
@@ -17,25 +18,25 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
 
-const DeliveryPersonRegisterPage = () => {
+const CustomerRegisterPage = () => {
     return (
         <>
             <NavigationContainer independent = {true}>
                 <Stack.Navigator
                     screenOptions = {{
-						contentStyle: {backgroundColor: "beige"}
+						contentStyle: {backgroundColor: "beige"},
 					}}
                 >
                     <Stack.Screen
-                        name = "Delivery Person Register"
-                        component = {DeliveryPersonRegisterComponent}
+                        name = "Customer Register"
+                        component = {CustomerRegisterComponent}
                         options = {{
                             header: () => null
                         }}
                     />
                     <Stack.Screen
-                        name = "Customer Register"
-                        component = {CustomerRegisterPage}
+                        name = "Delivery Person Register"
+                        component = {DeliveryPersonRegisterComponent}
                         options = {{
                             header: () => null
                         }}
@@ -48,16 +49,16 @@ const DeliveryPersonRegisterPage = () => {
                         }}
                     />
                     <Stack.Screen
-                        name = "Delivery Person Login"
-                        component = {DeliveryPersonLoginComponent}
+                        name = "Customer Login"
+                        component = {CustomerLoginComponent}
                         options = {{
-                            headerTitleStyle: {
-                                fontFamily: "PatuaOne-Regular"
-                            },
-                            headerStyle: {
-                                backgroundColor: "beige"
-                            }
-                        }}
+							headerTitleStyle: {
+								fontFamily: "PatuaOne-Regular"
+							},
+							headerStyle: {
+								backgroundColor: "beige"
+							}
+						}}
                     />
                     <Stack.Screen
                         name = "About"
@@ -71,10 +72,17 @@ const DeliveryPersonRegisterPage = () => {
 							}
 						}}
                     />
+                    <Stack.Screen
+                        name = "Customer Home"
+                        component = {CustomerHomePage}
+                        options = {{
+                            header: () => null
+                        }}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         </>
     )
 }
 
-export default DeliveryPersonRegisterPage;
+export default CustomerRegisterPage;

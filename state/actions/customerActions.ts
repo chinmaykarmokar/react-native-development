@@ -11,3 +11,17 @@ export const customerLogin = (data: any) => {
         payload: data
     }
 }
+
+export const customerDetails = (data: any) => {
+    return {
+        type: "customerDetails",
+        payload: data
+    }
+}
+
+export const fullMenu = (data: any) => {
+    return {
+        type: "fullMenu",
+        payload: data
+    }
+}

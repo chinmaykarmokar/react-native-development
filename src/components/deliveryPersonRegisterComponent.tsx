@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Import actions
-import { deliveryPersonRegister } from "../state/actions/deliveryPersonActions";
+import { deliveryPersonRegister } from "../../state/actions/deliveryPersonActions";
 
 // Import Axios
 import axios from "axios";

@@ -9,9 +9,9 @@ import { Text, StyleSheet, View, ScrollView, Pressable, Image } from "react-nati
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 // Use static images
-const burpgerHomeImage = require("../assets/images/burpger-home.png");
+const burpgerHomeImage = require("../../assets/images/burpger-home.png");
 
-const LandingPageComponent = ({navigation}) => {
+const LandingPageComponent = ({navigation}: any) => {
     return (
         <View style = {styles.mainPageView}>
             <ScrollView contentContainerStyle = {styles.body}>

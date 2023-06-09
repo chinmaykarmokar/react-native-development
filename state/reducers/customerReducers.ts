@@ -18,6 +18,20 @@ const customerReducers = (state = initialState, action: any) => {
                 customerLoginData: action.payload,
                 loading: false
             }
+
+        case "customerDetails":
+            return {
+                ... state,
+                customerDetails: action.payload,
+                loading: false
+            }
+
+        case "fullMenu": 
+            return {
+                ... state,
+                fullMenuDetails: action.payload,
+                loading: false
+            }
             
         default: 
             return state    
