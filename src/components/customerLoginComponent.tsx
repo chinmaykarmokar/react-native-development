@@ -11,7 +11,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 // Import actions
-import { customerLogin } from "../state/actions/customerActions";
+import { customerLogin } from "../../state/actions/customerActions";
 
 // Import Redux hooks
 import { useSelector, useDispatch } from "react-redux";
@@ -20,7 +20,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import AntIcon from "react-native-vector-icons/AntDesign";
 
-const CustomerLoginComponent = ({navigation}) => {
+const CustomerLoginComponent = ({navigation}: any) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 

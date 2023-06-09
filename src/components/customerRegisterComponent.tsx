@@ -8,7 +8,7 @@ import { Alert, ScrollView, View, Pressable, Text, TextInput, StyleSheet } from 
 import { useSelector, useDispatch } from "react-redux";
 
 // Import actions
-import { customerRegister } from "../state/actions/customerActions";
+import { customerRegister } from "../../state/actions/customerActions";
 
 // Import react-native vector icons
 import Icon from "react-native-vector-icons/FontAwesome5";
