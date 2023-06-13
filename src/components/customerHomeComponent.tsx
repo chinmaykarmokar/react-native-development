@@ -53,49 +53,57 @@ const CustomerHomeComponent: React.FC = () => {
     useEffect(() => {
         fetchCustomerDetails(dispatch, config);
         fetchFullMenu(dispatch, config);
-    },[])
+    })
 
     console.log("MENU", fullMenuData);
 
     return (
         <>
-            <ScrollView>
-                <View style = {styles.customerHeader}>
-                    <Text style = {styles.customerHeaderText}>
-                        <FontAwesome5Icon name = "hamburger" size = {40}/> | {customerData?.[0]?.firstname}
-                    </Text>
-                    <Pressable style = {styles.logOutButton}>
-                        <Text style = {styles.logOutText}>
-                            <AntIcon name = "logout" size = {16}/> Log Out
-                        </Text>
-                    </Pressable>
-                </View>
-                {
-                    fullMenuData?.map((singleMenuItem: any, i: any) => {
-                        return (
-                            <View style = {styles.menuCard} key = {i}>
-                                <View style = {styles.menuImageView}>
-                                    <Image source = {{uri: singleMenuItem?.burger_image}} style = {styles.menuImageStyle}/>
-                                </View>
-                                <View style = {styles.menuDetails}>
-                                    <Text style = {styles.burgerName}>{singleMenuItem?.burger_name}</Text>
-                                    <Text style = {styles.burgerPrice}>
-                                        <Icon name = "pricetag" size = {20}/> ₹ {singleMenuItem?.price}
-                                    </Text>
-                                    <Text style = {styles.burgerCategory}>
-                                        <Icon name = "fast-food-outline" size = {20}/> {singleMenuItem?.category}
-                                    </Text>
-                                    <Pressable style = {styles.addToCartButton}>
-                                        <Text style = {styles.addToCartText}>
-                                            <AntIcon name = "shoppingcart" size = {15}/> Add To Cart
-                                        </Text>
-                                    </Pressable>
-                                </View>
-                            </View>
-                        )
-                    })
-                }
-            </ScrollView>
+            {
+                (!customerData || !fullMenuData || customerData == "undefined" || fullMenuData == "undefined") 
+                ? 
+                    <>
+                        <Text>Loading....</Text>
+                    </>
+                :
+                    <ScrollView>
+                        <View style = {styles.customerHeader}>
+                            <Text style = {styles.customerHeaderText}>
+                                <FontAwesome5Icon name = "hamburger" size = {40}/> | {customerData?.[0]?.firstname}
+                            </Text>
+                            <Pressable style = {styles.logOutButton}>
+                                <Text style = {styles.logOutText}>
+                                    <AntIcon name = "logout" size = {16}/> Log Out
+                                </Text>
+                            </Pressable>
+                        </View>
+                        {
+                            fullMenuData?.map((singleMenuItem: any, i: any) => {
+                                return (
+                                    <View style = {styles.menuCard} key = {i}>
+                                        <View style = {styles.menuImageView}>
+                                            <Image source = {{uri: singleMenuItem?.burger_image}} style = {styles.menuImageStyle}/>
+                                        </View>
+                                        <View style = {styles.menuDetails}>
+                                            <Text style = {styles.burgerName}>{singleMenuItem?.burger_name}</Text>
+                                            <Text style = {styles.burgerPrice}>
+                                                <Icon name = "pricetag" size = {20}/> ₹ {singleMenuItem?.price}
+                                            </Text>
+                                            <Text style = {styles.burgerCategory}>
+                                                <Icon name = "fast-food-outline" size = {20}/> {singleMenuItem?.category}
+                                            </Text>
+                                            <Pressable style = {styles.addToCartButton}>
+                                                <Text style = {styles.addToCartText}>
+                                                    <AntIcon name = "shoppingcart" size = {15}/> Add To Cart
+                                                </Text>
+                                            </Pressable>
+                                        </View>
+                                    </View>
+                                )
+                            })
+                        }
+                    </ScrollView>
+            }
         </>
     )
 }
@@ -103,13 +111,13 @@ const CustomerHomeComponent: React.FC = () => {
 const styles = StyleSheet.create({
     customerHeader: {
         padding: 25,
-        alignItems: "center"
+        // alignItems: "center"
     },
     customerHeaderText: {
         fontFamily: "SecularOne-Regular",
         fontSize: 40,
         color: "#000099",
-        textAlign: "center"
+        // textAlign: "center"
     },
     logOutButton: {
         backgroundColor: "#000",
