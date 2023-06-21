@@ -73,7 +73,7 @@ const CustomerLoginComponent = ({navigation}: any) => {
                         navigation.navigate("Customer Home");
                     },3000)
 
-                    dispatch(customerLogin(response));
+                    dispatch(customerLogin(response?.data));
                 }
                 else {
                     Alert.alert("Login", `${response?.data?.error} :(`, [
@@ -87,12 +87,11 @@ const CustomerLoginComponent = ({navigation}: any) => {
                             onPress: () => console.log('OK Pressed')
                         }
                     ])
-
+                
                     setTimeout(() => {
                         navigation.navigate("Customer Login");
                     },3000)
                 }
-                // navigation.navigate("Customer Home")
             })
     }
 

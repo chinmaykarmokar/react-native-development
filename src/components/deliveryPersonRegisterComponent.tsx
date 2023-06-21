@@ -16,7 +16,7 @@ import { Alert, ScrollView, View, Pressable, Text, TextInput, StyleSheet } from 
 // Import react-native vector icons
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-const DeliveryPersonRegisterComponent: React.FC = ({navigation}) => {
+const DeliveryPersonRegisterComponent: React.FC = ({navigation}: any) => {
     const [name, setName] = useState();
     const [mobile, setMobile] = useState();
     const [aadhar, setAadhar] = useState();

@@ -8,7 +8,7 @@ import LandingPageComponent from "../components/landingPageComponent";
 import AboutPageComponent from "../components/aboutComponent";
 import CustomerRegisterComponent from "../components/customerRegisterComponent";
 import CustomerLoginComponent from "../components/customerLoginComponent";
-import CustomerHomePage from "./customerHomePage";
+import CustomerHomePage from "./customerHomeTabs";
 // import DeliveryPersonRegisterPage from "./deliveryPersonRegisterPage";
 import DeliveryPersonRegisterComponent from "../components/deliveryPersonRegisterComponent";
 
