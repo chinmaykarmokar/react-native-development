@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 // Import React Native Components
-import { ScrollView, View, Image, Pressable, Text, StyleSheet } from "react-native";
+import { Alert, ScrollView, View, Image, Pressable, Text, StyleSheet } from "react-native";
 
 // Import AsyncStorage
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -13,16 +13,18 @@ import { useSelector, useDispatch } from "react-redux";
 // Import common functions
 import { fetchCustomerDetails, fetchFullMenu } from "../commonFunctions/commonFunctions";
 
-// Use static images
-const burpgerHomeImage = require("../../assets/images/burpger-home.png");
+// Import actions
+import { addToCart } from "../../state/actions/customerActions";
 
 // Import react native vector icons
 import Icon from "react-native-vector-icons/Ionicons";
 import AntIcon from "react-native-vector-icons/AntDesign";
-import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5"
+import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
+import axios from "axios";
 
 const CustomerHomeComponent: React.FC = () => {
     const [token, setToken] = useState("");
+
     const dispatch = useDispatch();
 
     const customerData = useSelector((state: any) => {return state?.customers?.customerDetails}); 
@@ -46,7 +48,9 @@ const CustomerHomeComponent: React.FC = () => {
 
     const config = {
         headers: {
-            "authorization": `Bearer ${token}` 
+            "authorization": `Bearer ${token}`,
+            "content-type": "application/json",
+            "Access-Control-Allow-Origin": "*" 
         }
     }
 
@@ -55,7 +59,48 @@ const CustomerHomeComponent: React.FC = () => {
         fetchFullMenu(dispatch, config);
     })
 
-    console.log("MENU", fullMenuData);
+    const addFoodItemToCartHandler = async (burgerID: number, email: string, burgerName: string, burgerPrice: number, newBurgerPrice: number) => {
+        const burgerToBeAddedInCart = {
+            email: email,
+            burger_name: burgerName,
+            burger_price: burgerPrice,
+            new_burger_price: newBurgerPrice
+        }
+
+        await axios.post(`https://burpger-1yxc.onrender.com/api/customers/addToCart/${burgerID}`, burgerToBeAddedInCart, config)
+            .then((response) => {
+                if (response) {
+                    console.log(response);
+
+                    Alert.alert("Cart is ready!", "Your item has been added to the cart!", [
+                        {
+                            text: 'Cancel',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel'
+                        },
+                        {
+                            text: 'OK', 
+                            onPress: () => console.log('OK Pressed')
+                        }
+                    ])
+
+                    dispatch(addToCart(response));
+                }
+                else {
+                    Alert.alert(":(", "Item couldn't be added to the cart!", [
+                        {
+                            text: 'Cancel',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel'
+                        },
+                        {
+                            text: 'OK', 
+                            onPress: () => console.log('OK Pressed')
+                        }
+                    ])
+                }
+            })
+    }
 
     return (
         <>
@@ -69,13 +114,8 @@ const CustomerHomeComponent: React.FC = () => {
                     <ScrollView>
                         <View style = {styles.customerHeader}>
                             <Text style = {styles.customerHeaderText}>
-                                <FontAwesome5Icon name = "hamburger" size = {40}/> | {customerData?.[0]?.firstname}
+                                <FontAwesome5Icon name = "utensils" size = {40}/> Menu
                             </Text>
-                            <Pressable style = {styles.logOutButton}>
-                                <Text style = {styles.logOutText}>
-                                    <AntIcon name = "logout" size = {16}/> Log Out
-                                </Text>
-                            </Pressable>
                         </View>
                         {
                             fullMenuData?.map((singleMenuItem: any, i: any) => {
@@ -92,7 +132,14 @@ const CustomerHomeComponent: React.FC = () => {
                                             <Text style = {styles.burgerCategory}>
                                                 <Icon name = "fast-food-outline" size = {20}/> {singleMenuItem?.category}
                                             </Text>
-                                            <Pressable style = {styles.addToCartButton}>
+                                            <Pressable 
+                                                style = {styles.addToCartButton}
+                                                onPress = {
+                                                    () => {
+                                                        addFoodItemToCartHandler(singleMenuItem?.id, customerData?.[0]?.email, singleMenuItem?.burger_name, singleMenuItem?.price, singleMenuItem?.price)
+                                                    }
+                                                }
+                                            >
                                                 <Text style = {styles.addToCartText}>
                                                     <AntIcon name = "shoppingcart" size = {15}/> Add To Cart
                                                 </Text>
@@ -114,9 +161,9 @@ const styles = StyleSheet.create({
         // alignItems: "center"
     },
     customerHeaderText: {
-        fontFamily: "SecularOne-Regular",
+        fontFamily: "DMSerifDisplay-Regular",
         fontSize: 40,
-        color: "#000099",
+        color: "#000033",
         // textAlign: "center"
     },
     logOutButton: {

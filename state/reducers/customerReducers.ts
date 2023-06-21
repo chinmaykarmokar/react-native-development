@@ -32,6 +32,20 @@ const customerReducers = (state = initialState, action: any) => {
                 fullMenuDetails: action.payload,
                 loading: false
             }
+
+        case "addToCart":
+            return {
+                ... state,
+                addToCartData: action.payload,
+                loading: false
+            }
+
+        case "getCartItems": 
+            return {
+                ... state,
+                cartItemDetails: action.payload,
+                loading: false
+            }
             
         default: 
             return state    

@@ -14,23 +14,37 @@ import LandingPageComponent from "./src/components/landingPageComponent";
 import AboutPageComponent from "./src/components/aboutComponent";
 import DeliveryPersonRegisterPage from "./src/pages/deliveryPersonRegisterPage";
 import CustomerRegisterPage from "./src/pages/customerRegisterPage";
+import CustomerTabsPage from "./src/pages/customerHomeTabs";
 
 // Integrate React Redux
 import { Provider } from "react-redux";
 import Store from "./state/store/store";
 
+// Import AsyncStorage
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const App: React.FC = () => {
-//   const [name, setName] = useState("Chinmay");
-//   const [bio, setBio] = useState({age: 19, dob: "April 1 2002"})
+	const [token,setToken] = useState("");
+    const [loggedIn, setLoggedIn] = useState(true);
 
-//   const clickHandler = () => {
-//     setName("Chinmay M. Karmokar");
-//     setBio({age: 19, dob: "1st April 2002"})
-//   }
+    const getData = async () => {
+        try {
+            const value = await AsyncStorage.getItem("accessToken");
+            if (value !== null) {
+                setToken(value);
+                setLoggedIn(true);
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 
-//   const inputHandler = (value: string) => {
-// 	  setName(value);
-//   }
+    useEffect(() => {
+        getData()
+    })
+
+    console.log(token);
 
 	return (
 		<Provider store = {Store}>
@@ -41,13 +55,45 @@ const App: React.FC = () => {
 							contentStyle: {backgroundColor: "beige"}
 						}}
 					>
+						{
+							(token || token !== undefined || token !== null) ? 
+								<Stack.Screen
+									name = "Customer Home"
+									component = {CustomerTabsPage}
+									options = {{
+										header: () => null
+									}}
+								/>      
+							:
+								<Stack.Screen
+									name = "Landing Page"
+									component = {LandingPageComponent}
+									options = {{
+										header: () => null
+									}}
+								/>			
+						}
 						<Stack.Screen
 							name = "Landing Page"
 							component = {LandingPageComponent}
 							options = {{
 								header: () => null
 							}}
-						/>
+						/>	
+						{/* <Stack.Screen
+							name = "Landing Page"
+							component = {LandingPageComponent}
+							options = {{
+								header: () => null
+							}}
+						/>	
+						<Stack.Screen
+							name = "Customer Home"
+							component = {CustomerTabsPage}
+							options = {{
+								header: () => null
+							}}
+						/> */}
 						<Stack.Screen
 							name = "Delivery Person Register"
 							component = {DeliveryPersonRegisterPage}
