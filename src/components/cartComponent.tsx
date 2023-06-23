@@ -8,7 +8,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchAllCartItems } from "../commonFunctions/commonFunctions";
 
 // Import React Native components
-import { ScrollView, View, Text, Pressable, StyleSheet } from "react-native";
+import { Alert, ScrollView, View, Text, Pressable, StyleSheet } from "react-native";
+
+// Import actions
+import { increaseCartItems, decreaseCartItems } from "../../state/actions/customerActions";
 
 // Import AsyncStorage
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -16,8 +19,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Import react native vector icons
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import axios from "axios";
 
-const CartComponent = () => {
+const CartComponent = ({navigation}: any) => {
     const [token, setToken] = useState("");
     const allCartItemDetails = useSelector((state: any) => {return state?.customers?.cartItemDetails});
 
@@ -51,7 +55,61 @@ const CartComponent = () => {
         fetchAllCartItems(dispatch, config);
     })
 
-    console.log("CART", allCartItemDetails);
+    const increaseCartItemsHandler = async (burgerID: number, quantityOfBurger: number, newBurgerPrice: number, oldBurgerPrice: number) => {
+        const increaseBurgerQuantityPayload = {
+            quantity_of_burger: quantityOfBurger + 1,
+            new_burger_price: newBurgerPrice + oldBurgerPrice
+        }
+
+        await axios.put(`https://burpger-1yxc.onrender.com/api/customers/updateCartToAdd/${burgerID}`, increaseBurgerQuantityPayload, config)
+            .then((response: any) => {
+                Alert.alert("Added!", "The selected burger quantity was increased!", [
+                    {
+                        text: 'Cancel',
+                        onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel'
+                    },
+                    {
+                        text: 'OK', 
+                        onPress: () => console.log('OK Pressed')
+                    }
+                ])
+
+                setTimeout(() => {
+                    navigation.navigate("Cart Page");
+                }, 1000)
+
+                dispatch(increaseCartItems(response));
+            })
+    }
+
+    const decreaseCartItemsHandler = async (burgerID: number, quantityOfBurger: number, newBurgerPrice: number, oldBurgerPrice: number) => {
+        const decreaseBurgerQuantityPayload = {
+            quantity_of_burger: quantityOfBurger - 1,
+            new_burger_price: newBurgerPrice - oldBurgerPrice
+        }
+
+        await axios.put(`https://burpger-1yxc.onrender.com/api/customers/updateCartToRemove/${burgerID}`, decreaseBurgerQuantityPayload, config)
+            .then((response: any) => {
+                Alert.alert("Removed!", "The item you selected was reduced by 1.", [
+                    {
+                        text: 'Cancel',
+                        onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel'
+                    },
+                    {
+                        text: 'OK', 
+                        onPress: () => console.log('OK Pressed')
+                    }
+                ])
+
+                setTimeout(() => {
+                    navigation.navigate("Cart Page");
+                }, 1000)
+
+                dispatch(decreaseCartItems(response));
+            })
+    }
 
     return (
         <>
@@ -78,13 +136,27 @@ const CartComponent = () => {
                                     <Text style = {styles.iconDetail}>₹{singleCartItem?.new_burger_price}</Text>
                                 </View>
                                 <View style = {styles.buttonsView}>
-                                    <Pressable style = {styles.minusButton}>
+                                    <Pressable 
+                                        style = {styles.minusButton}
+                                        onPress = {
+                                            () => {
+                                                decreaseCartItemsHandler(singleCartItem?.id, singleCartItem?.quantity_of_burger, singleCartItem?.new_burger_price, singleCartItem?.burger_price)  
+                                            }
+                                        }
+                                    >
                                         <Text style = {styles.buttonTexts}>-</Text>
                                     </Pressable>
                                     <Pressable style = {styles.centerButton}>
                                         <Text style = {styles.buttonTexts}>{singleCartItem?.quantity_of_burger}</Text>
                                     </Pressable>
-                                    <Pressable style = {styles.plusButton}>
+                                    <Pressable 
+                                        style = {styles.plusButton}
+                                        onPress = {
+                                            () => {
+                                                increaseCartItemsHandler(singleCartItem?.id, singleCartItem?.quantity_of_burger, singleCartItem?.new_burger_price, singleCartItem?.burger_price)
+                                            }
+                                        }
+                                    >
                                         <Text style = {styles.buttonTexts}>+</Text>
                                     </Pressable>
                                 </View>
@@ -92,6 +164,13 @@ const CartComponent = () => {
                         )
                     })
                 }
+                <View style = {styles.placeOrderButtonContainer}>
+                    <Pressable style = {styles.placeOrderButton}>
+                        <Text style = {styles.placeOrderButtonText}>
+                            <Icon name = "box" size = {20}/> Place Order
+                        </Text>
+                    </Pressable>
+                </View>
             </ScrollView>
         </>
     )
@@ -157,6 +236,22 @@ const styles = StyleSheet.create({
         color: "#000",
         fontSize: 25,
         textAlign: "center",
+        fontFamily: "PatuaOne-Regular"
+    },
+    placeOrderButtonContainer: {
+        padding: 15,
+        marginTop: 10
+    },
+    placeOrderButton: {
+        backgroundColor: "#ff8c00",
+        padding: 15,
+        borderRadius: 50,
+        width: 150,
+        elevation: 10
+    },
+    placeOrderButtonText: {
+        fontSize: 18,
+        color: "#000",
         fontFamily: "PatuaOne-Regular"
     }
 })

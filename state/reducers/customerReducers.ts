@@ -46,6 +46,20 @@ const customerReducers = (state = initialState, action: any) => {
                 cartItemDetails: action.payload,
                 loading: false
             }
+
+        case " increaseCartItems": 
+            return {
+                ... state,
+                increaseItems: action.payload,
+                loading: false
+            }
+
+        case "decreaseCartItems":
+            return {
+                ... state,
+                decreaseItems: action.payload,
+                loading: false
+            }
             
         default: 
             return state    

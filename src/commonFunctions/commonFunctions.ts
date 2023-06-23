@@ -1,6 +1,5 @@
 // Import Axios
 import axios from "axios";
-import { useDispatch } from "react-redux";
 
 // Import actions
 import { customerDetails, fullMenu, getCartItems } from "../../state/actions/customerActions";
