@@ -14,7 +14,7 @@ import { customerRegister } from "../../state/actions/customerActions";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 
-const CustomerRegisterComponent: React.FC = ({navigation}) => {
+const CustomerRegisterComponent: React.FC = ({navigation}:  any) => {
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
     const [age, setAge] = useState<any>("");

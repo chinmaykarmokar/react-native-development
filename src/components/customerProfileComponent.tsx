@@ -52,8 +52,6 @@ const CustomerProfilePageComponent = ({navigation}: any) => {
         fetchCustomerDetails(dispatch, config);
     })
 
-    // console.log(token);
-
     const logOutHandler = async () => {
         try {
             await AsyncStorage.clear();

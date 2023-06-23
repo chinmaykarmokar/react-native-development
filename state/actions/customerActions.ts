@@ -39,3 +39,17 @@ export const getCartItems = (data: any) => {
         payload: data
     }
 }
+
+export const increaseCartItems = (data: any) => {
+    return {
+        type: "increaseCartItems",
+        payload: data
+    }
+}
+
+export const decreaseCartItems = (data: any) => {
+    return {
+        type: "decreaseCartItems",
+        payload: data
+    }
+}
