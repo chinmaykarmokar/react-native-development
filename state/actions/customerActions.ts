@@ -53,3 +53,17 @@ export const decreaseCartItems = (data: any) => {
         payload: data
     }
 }
+
+export const placeOrder = (data: any) => {
+    return {
+        type: "placeOrder",
+        payload: data
+    }
+}
+
+export const getUserSpecificOrders = (data: any) => {
+    return {
+        type: "getUserSpecificOrders",
+        payload: data
+    }
+}

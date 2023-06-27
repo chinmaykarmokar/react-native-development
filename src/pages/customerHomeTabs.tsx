@@ -102,7 +102,8 @@ const CustomerTabsPage = () => {
                     component = {OrdersComponent}
                     options = {{
                         header: () => null,
-                        tabBarLabel: () => null
+                        tabBarLabel: () => null,
+                        unmountOnBlur: true
                     }}
                 />
                 <Tab.Screen

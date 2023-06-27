@@ -47,7 +47,7 @@ const customerReducers = (state = initialState, action: any) => {
                 loading: false
             }
 
-        case " increaseCartItems": 
+        case "increaseCartItems": 
             return {
                 ... state,
                 increaseItems: action.payload,
@@ -58,6 +58,20 @@ const customerReducers = (state = initialState, action: any) => {
             return {
                 ... state,
                 decreaseItems: action.payload,
+                loading: false
+            }
+
+        case "placeOrder":
+            return {
+                ... state,
+                orderDetails: action.payload,
+                loading: false
+            }
+
+        case "getUserSpecificOrders":
+            return {
+                ... state,
+                userSpecificOrder: action.payload,
                 loading: false
             }
             

@@ -44,8 +44,6 @@ const App: React.FC = () => {
         getData()
     })
 
-    console.log(token);
-
 	return (
 		<Provider store = {Store}>
 			<View style = {styles.body}>
