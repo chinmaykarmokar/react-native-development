@@ -76,7 +76,7 @@ const CustomerProfilePageComponent = ({navigation}: any) => {
                     <ScrollView>
                         <View style = {styles.brandContainer}>
                             <Text style = {styles.brandName}>
-                                <Icon name = "hamburger" size = {30}/> Burpger | Customer
+                                <Icon name = "user" size = {35}/> Profile
                             </Text>
                         </View>
                         <View style = {styles.detailsContainer}>
@@ -135,12 +135,12 @@ const CustomerProfilePageComponent = ({navigation}: any) => {
 const styles = StyleSheet.create({
     brandContainer: {
         padding: 20,
-        alignItems: "center"
+        // alignItems: "center"
     },
     brandName: {
-        fontSize: 30,
+        fontSize: 40,
         color: "#000",
-        fontFamily: "FredokaOne-Regular"
+        fontFamily: "DMSerifDisplay-Regular"
     },
     detailsContainer: {
         padding: 15,

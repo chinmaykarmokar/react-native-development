@@ -1,13 +1,101 @@
-import React from "react";
+// Import React and its hooks
+import React, { useState, useEffect } from "react";
 
 // Import react-native components
-import { ScrollView, View, Text, TextInput, Pressable, StyleSheet } from "react-native";
+import { Alert, ScrollView, View, Text, TextInput, Pressable, StyleSheet } from "react-native";
+
+// Import Axios
+import axios from "axios";
+
+// Import actions
+import { deliveryPersonLogin } from "../../state/actions/deliveryPersonActions";
+
+// Import React Redux hooks
+import { useSelector, useDispatch } from "react-redux";
+
+// Import AsyncStorage
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Import react-native vector icons
 import Icon from "react-native-vector-icons/FontAwesome5";
 import AntIcon from "react-native-vector-icons/AntDesign";
 
-const DeliveryPersonLoginComponent: React.FC = () => {
+const DeliveryPersonLoginComponent = ({navigation}: any) => {
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
+    const dispatch = useDispatch();
+
+    const changeEmailHandler = (emailParameter: any) => {
+        setEmail(emailParameter);
+    } 
+
+    const changePasswordHandler = (passwordParameter: any) => {
+        setPassword(passwordParameter);
+    }
+
+    const deliveryPersonLoginPayload = {
+        email: email,
+        password: password
+    }
+
+    const config = {
+        headers: {
+            "content-type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    }
+
+    const deliveryPersonLoginHandler = () => {
+        // console.log(deliveryPersonLoginPayload);
+        axios.post("https://burpger-1yxc.onrender.com/api/delivery/deliveryLogin", deliveryPersonLoginPayload, config)
+            .then(async (response) => {
+                if (!response?.data?.error) {
+                    try {
+                        await AsyncStorage.setItem("deliveryPersonToken", response?.data?.accessToken);
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+
+                    Alert.alert("Login", "Login successful!", [
+                        {
+                            text: 'Cancel',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel'
+                        },
+                        {
+                            text: 'OK', 
+                            onPress: () => console.log('OK Pressed')
+                        }
+                    ])
+
+                    setTimeout(() => {
+                        navigation.navigate("Delivery Person Home");
+                    },3000)
+
+                    dispatch(deliveryPersonLogin(response?.data));
+                }
+                else {
+                    Alert.alert("Login", `${response?.data?.error} :(`, [
+                        {
+                            text: 'Cancel',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel'
+                        },
+                        {
+                            text: 'OK', 
+                            onPress: () => console.log('OK Pressed')
+                        }
+                    ])
+                
+                    setTimeout(() => {
+                        navigation.navigate("Delivery Person Login");
+                    },3000)
+                }
+            })
+    }
+ 
     return (
         <>
             <ScrollView>
@@ -20,15 +108,22 @@ const DeliveryPersonLoginComponent: React.FC = () => {
                     <TextInput
                         style = {styles.input}
                         placeholder = "Email ID"
+                        placeholderTextColor = "gray"
                         keyboardType="email-address"
+                        onChangeText = {changeEmailHandler}
                     />
                     <Text style = {styles.formLabel}>Password</Text>
                     <TextInput
                         style = {styles.input}
                         placeholder = "Password"
+                        placeholderTextColor = "gray"
                         secureTextEntry = {true}
+                        onChangeText = {changePasswordHandler}
                     />
-                    <Pressable style = {styles.loginButton}>
+                    <Pressable 
+                        style = {styles.loginButton}
+                        onPress = {() => {deliveryPersonLoginHandler()}}    
+                    >
                         <Text style = {styles.buttonText}>
                             <AntIcon name = "login" size = {20}/> Login
                         </Text>
@@ -67,7 +162,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontWeight: "bold",
         fontFamily: "Patua One",
-        padding: 10
+        padding: 10,
+        color: "#000"
     },
     loginButton: {
         backgroundColor: "#ff8c00",

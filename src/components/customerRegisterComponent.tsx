@@ -140,6 +140,7 @@ const CustomerRegisterComponent: React.FC = ({navigation}:  any) => {
                     style = {styles.input}
                     defaultValue = {firstName}
                     placeholder = "First Name"
+                    placeholderTextColor = "gray"
                     onChangeText = {changeFirstNameHandler}
                 />
                 <Text style = {styles.formLabel}>Last Name</Text>
@@ -147,6 +148,7 @@ const CustomerRegisterComponent: React.FC = ({navigation}:  any) => {
                     style = {styles.input}
                     defaultValue = {lastName}
                     placeholder = "Last Name"
+                    placeholderTextColor = "gray"
                     onChangeText = {changeLastNameHandler}
                 />
                 <Text style = {styles.formLabel}>Age</Text>
@@ -154,6 +156,7 @@ const CustomerRegisterComponent: React.FC = ({navigation}:  any) => {
                     style = {styles.input}
                     defaultValue = {age}
                     placeholder = "Age"
+                    placeholderTextColor = "gray"
                     keyboardType="phone-pad"
                     onChangeText = {changeAgeHandler}
                 />
@@ -162,6 +165,7 @@ const CustomerRegisterComponent: React.FC = ({navigation}:  any) => {
                     style = {styles.input}
                     defaultValue = {address}
                     placeholder = "Address"
+                    placeholderTextColor = "gray"
                     onChangeText = {changeAddressHandler}
                 />
                 <Text style = {styles.formLabel}>Mobile Number</Text>
@@ -170,6 +174,7 @@ const CustomerRegisterComponent: React.FC = ({navigation}:  any) => {
                     defaultValue = {mobile}
                     placeholder = "Mobile Number"
                     keyboardType="phone-pad"
+                    placeholderTextColor = "gray"
                     onChangeText = {changeMobileHandler}
                 />
                 <Text style = {styles.formLabel}>Email ID</Text>
@@ -177,6 +182,7 @@ const CustomerRegisterComponent: React.FC = ({navigation}:  any) => {
                     style = {styles.input}
                     defaultValue = {email}
                     placeholder = "Email ID"
+                    placeholderTextColor = "gray"
                     keyboardType="email-address"
                     onChangeText = {changeEmailHandler}
                 />
@@ -185,6 +191,7 @@ const CustomerRegisterComponent: React.FC = ({navigation}:  any) => {
                     style = {styles.input}
                     defaultValue = {password}
                     placeholder = "Password"
+                    placeholderTextColor = "gray"
                     secureTextEntry={true}
                     onChangeText = {changePasswordHandler}
                 />
@@ -246,7 +253,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontWeight: "bold",
         fontFamily: "Patua One",
-        padding: 10
+        padding: 10,
+        color: "#000"
     },
     registerButton: {
         backgroundColor: "#ff8c00",

@@ -62,8 +62,6 @@ const DeliveryPersonRegisterComponent: React.FC = ({navigation}: any) => {
         }
     }
 
-    console.log(deliveryPersonRegisterPayload);
-
     const deliveryPersonRegisterHandler = () => {
         axios.post("https://burpger-1yxc.onrender.com/api/delivery/deliveryPersonregister", deliveryPersonRegisterPayload, config)
             .then((response: any) => {
@@ -132,6 +130,7 @@ const DeliveryPersonRegisterComponent: React.FC = ({navigation}: any) => {
                     style = {styles.input}
                     defaultValue = {name}
                     placeholder = "Name"
+                    placeholderTextColor = "gray"
                     onChangeText = {changeNameHandler}
                 />
                 <Text style = {styles.formLabel}>Mobile Number</Text>
@@ -139,6 +138,7 @@ const DeliveryPersonRegisterComponent: React.FC = ({navigation}: any) => {
                     style = {styles.input}
                     defaultValue = {mobile}
                     placeholder = "Mobile Number"
+                    placeholderTextColor = "gray"
                     keyboardType="phone-pad"
                     onChangeText = {changeMobileHandler}
                 />
@@ -147,6 +147,7 @@ const DeliveryPersonRegisterComponent: React.FC = ({navigation}: any) => {
                     style = {styles.input}
                     defaultValue = {aadhar}
                     placeholder = "Aadhar Number"
+                    placeholderTextColor = "gray"
                     keyboardType="phone-pad"
                     onChangeText = {changeAadharHandler}
                 />
@@ -155,6 +156,7 @@ const DeliveryPersonRegisterComponent: React.FC = ({navigation}: any) => {
                     style = {styles.input}
                     defaultValue = {email}
                     placeholder = "Email ID"
+                    placeholderTextColor = "gray"
                     keyboardType="email-address"
                     onChangeText = {changeEmailHandler}
                 />
@@ -163,6 +165,7 @@ const DeliveryPersonRegisterComponent: React.FC = ({navigation}: any) => {
                     style = {styles.input}
                     defaultValue = {password}
                     placeholder = "Password"
+                    placeholderTextColor = "gray"
                     secureTextEntry={true}
                     onChangeText = {changePasswordHandler}
                 />
@@ -224,7 +227,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontWeight: "bold",
         fontFamily: "Patua One",
-        padding: 10
+        padding: 10,
+        color: "#000"
     },
     registerButton: {
         backgroundColor: "#ff8c00",

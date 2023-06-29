@@ -106,6 +106,7 @@ const CustomerLoginComponent = ({navigation}: any) => {
                     style = {styles.input}
                     value = {email}
                     placeholder = "Email ID"
+                    placeholderTextColor = "gray"
                     keyboardType = "email-address"
                     onChangeText = {changeEmailHandler}
                 />
@@ -114,6 +115,7 @@ const CustomerLoginComponent = ({navigation}: any) => {
                     style = {styles.input}
                     value = {password}
                     placeholder = "Password"
+                    placeholderTextColor = "gray"
                     secureTextEntry = {true}
                     onChangeText = {changePasswordHandler}
                 />
@@ -157,7 +159,8 @@ const styles =  StyleSheet.create({
         marginTop: 10,
         fontWeight: "bold",
         fontFamily: "Patua One",
-        padding: 10
+        padding: 10,
+        color: "#000"
     },
     loginButton: {
         backgroundColor: "#ff8c00",

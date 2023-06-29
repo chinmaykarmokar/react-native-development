@@ -8,9 +8,9 @@ import LandingPageComponent from "../components/landingPageComponent";
 import AboutPageComponent from "../components/aboutComponent";
 import CustomerRegisterComponent from "../components/customerRegisterComponent";
 import CustomerLoginComponent from "../components/customerLoginComponent";
-import CustomerHomePage from "./customerHomeTabs";
-// import DeliveryPersonRegisterPage from "./deliveryPersonRegisterPage";
+import CustomerHomeStack from "./customerHomeStack";
 import DeliveryPersonRegisterComponent from "../components/deliveryPersonRegisterComponent";
+import DeliveryPersonLoginComponent from "../components/deliveryPersonLoginComponent";
 
 // Import Navigation Container
 import { NavigationContainer } from "@react-navigation/native";
@@ -39,6 +39,18 @@ const CustomerRegisterPage = () => {
                         component = {DeliveryPersonRegisterComponent}
                         options = {{
                             header: () => null
+                        }}
+                    />
+                    <Stack.Screen
+                        name = "Delivery Person Login"
+                        component = {DeliveryPersonLoginComponent}
+                        options = {{
+                            headerTitleStyle: {
+                                fontFamily: "PatuaOne-Regular"
+                            },
+                            headerStyle: {
+                                backgroundColor: "beige"
+                            }
                         }}
                     />
                     <Stack.Screen
@@ -74,7 +86,7 @@ const CustomerRegisterPage = () => {
                     />
                     <Stack.Screen
                         name = "Customer Home"
-                        component = {CustomerHomePage}
+                        component = {CustomerHomeStack}
                         options = {{
                             header: () => null
                         }}
