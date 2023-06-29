@@ -13,8 +13,11 @@ const Stack = createNativeStackNavigator();
 import LandingPageComponent from "./src/components/landingPageComponent";
 import AboutPageComponent from "./src/components/aboutComponent";
 import DeliveryPersonRegisterPage from "./src/pages/deliveryPersonRegisterPage";
+import DeliveryPersonLoginComponent from "./src/components/deliveryPersonLoginComponent";
 import CustomerRegisterPage from "./src/pages/customerRegisterPage";
-import CustomerTabsPage from "./src/pages/customerHomeTabs";
+import CustomerLoginComponent from "./src/components/customerLoginComponent";
+import CustomerHomeStack from "./src/pages/customerHomeStack";
+import DeliveryPersonStack from "./src/pages/deliveryPersonStack";
 
 // Integrate React Redux
 import { Provider } from "react-redux";
@@ -24,14 +27,15 @@ import Store from "./state/store/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const App: React.FC = () => {
-	const [token,setToken] = useState("");
+	const [customerToken, setCustomerToken] = useState<any>();
+	const [deliveryPersonToken, setDeliveryPersonToken] = useState<any>();
     const [loggedIn, setLoggedIn] = useState(true);
 
-    const getData = async () => {
+    const getCustomerToken = async () => {
         try {
             const value = await AsyncStorage.getItem("accessToken");
             if (value !== null) {
-                setToken(value);
+                setCustomerToken(value);
                 setLoggedIn(true);
             }
         }
@@ -40,9 +44,23 @@ const App: React.FC = () => {
         }
     }
 
+	const getDeliveryPersonToken = async () => {
+        try {
+            const value = await AsyncStorage.getItem("deliveryPersonToken");
+            if(value !== null) {
+                setDeliveryPersonToken(value);
+				setLoggedIn(true);
+            }
+        } 
+        catch(error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
-        getData()
-    })
+        getCustomerToken();
+		getDeliveryPersonToken();
+    },[])
 
 	return (
 		<Provider store = {Store}>
@@ -54,14 +72,23 @@ const App: React.FC = () => {
 						}}
 					>
 						{
-							(token || token !== undefined || token !== null) ? 
+							(customerToken) ? 
 								<Stack.Screen
 									name = "Customer Home"
-									component = {CustomerTabsPage}
+									component = {CustomerHomeStack}
 									options = {{
 										header: () => null
 									}}
-								/>      
+								/>
+							:
+							(deliveryPersonToken) ? 
+								<Stack.Screen
+									name = "Delivery Person Home"
+									component = {DeliveryPersonStack}
+									options = {{
+										header: () => null
+									}}
+								/>
 							:
 								<Stack.Screen
 									name = "Landing Page"
@@ -71,27 +98,6 @@ const App: React.FC = () => {
 									}}
 								/>			
 						}
-						<Stack.Screen
-							name = "Landing Page"
-							component = {LandingPageComponent}
-							options = {{
-								header: () => null
-							}}
-						/>	
-						{/* <Stack.Screen
-							name = "Landing Page"
-							component = {LandingPageComponent}
-							options = {{
-								header: () => null
-							}}
-						/>	
-						<Stack.Screen
-							name = "Customer Home"
-							component = {CustomerTabsPage}
-							options = {{
-								header: () => null
-							}}
-						/> */}
 						<Stack.Screen
 							name = "Delivery Person Register"
 							component = {DeliveryPersonRegisterPage}
@@ -106,10 +112,34 @@ const App: React.FC = () => {
 							}}
 						/>
 						<Stack.Screen
+							name = "Delivery Person Login"
+							component = {DeliveryPersonLoginComponent}
+							options = {{
+								headerTitleStyle: {
+									fontFamily: "PatuaOne-Regular"
+								},
+								headerStyle: {
+									backgroundColor: "beige"
+								}
+							}}
+						/>
+						<Stack.Screen
 							name = "Customer Register"
 							component = {CustomerRegisterPage}
 							options = {{
 								header: () => null,
+								headerTitleStyle: {
+									fontFamily: "PatuaOne-Regular"
+								},
+								headerStyle: {
+									backgroundColor: "beige"
+								}
+							}}
+						/>
+						<Stack.Screen
+							name = "Customer Login"
+							component = {CustomerLoginComponent}
+							options = {{
 								headerTitleStyle: {
 									fontFamily: "PatuaOne-Regular"
 								},

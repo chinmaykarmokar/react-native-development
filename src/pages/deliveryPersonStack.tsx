@@ -1,22 +1,22 @@
-// Import React and its hooks
-import React, { useState, useEffect } from "react";
+// Import React
+import React from "react";
 
 // Import components
+import CustomerTabsPage from "./customerHomeTabs";
+import DeliveryPersonTabs from "./deliveryPersonTabs";
 import LandingPageComponent from "../components/landingPageComponent";
 import DeliveryPersonRegisterComponent from "../components/deliveryPersonRegisterComponent";
 import DeliveryPersonLoginComponent from "../components/deliveryPersonLoginComponent";
 import CustomerRegisterComponent from "../components/customerRegisterComponent";
 import CustomerLoginComponent from "../components/customerLoginComponent";
-import CustomerTabsPage from "./customerHomeTabs";
-import DeliveryPersonTabs from "./deliveryPersonTabs";
 
-// Import Tab Navigator
+// Import Navigator
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
 
-const CustomerHomeStack = () => {
+const DeliveryPersonStack = () => {
     return (
         <>
             <NavigationContainer independent = {true}>
@@ -26,19 +26,19 @@ const CustomerHomeStack = () => {
                     }}
                 >
                     <Stack.Screen
+                        name = "Delivery Person Home"
+                        component = {DeliveryPersonTabs}
+                        options = {{
+                            header: () => null
+                        }}
+                    />
+                    <Stack.Screen
                         name = "Customer Home"
                         component = {CustomerTabsPage}
                         options = {{
                             header: () => null
                         }}
                     /> 
-                    <Stack.Screen
-                        name = "Delivery Person Home"
-                        component = {DeliveryPersonTabs}
-                        options = {{
-                            header: () => null
-                        }}
-                    />                     
                     <Stack.Screen
                         name = "Landing Page"
                         component = {LandingPageComponent}
@@ -90,4 +90,4 @@ const CustomerHomeStack = () => {
     )
 }
 
-export default CustomerHomeStack;
+export default DeliveryPersonStack;

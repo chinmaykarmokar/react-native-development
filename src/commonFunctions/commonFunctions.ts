@@ -3,6 +3,7 @@ import axios from "axios";
 
 // Import actions
 import { customerDetails, fullMenu, getCartItems, getUserSpecificOrders } from "../../state/actions/customerActions";
+import { deliveryPersonDetails } from "../../state/actions/deliveryPersonActions";
 
 export const fetchCustomerDetails = async (dispatch: any, config: Object) => {
     await axios.get("https://burpger-1yxc.onrender.com/api/customers/allCustomers", config)
@@ -37,5 +38,12 @@ export let fetchUserOrders = async (dispatch: any, config: Object) => {
             catch (error) {
                 throw (error);
             }
+        })
+}
+
+export const fetchDeliveryPersonDetails = async (dispatch: any, config: Object) => {
+    await axios.get("https://burpger-1yxc.onrender.com/api/delivery/deliveryPerson", config)
+        .then((response) => {
+            dispatch(deliveryPersonDetails(response?.data?.data));
         })
 }

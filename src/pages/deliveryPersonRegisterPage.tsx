@@ -6,7 +6,9 @@ import LandingPageComponent from "../components/landingPageComponent";
 import AboutPageComponent from "../components/aboutComponent";
 import DeliveryPersonRegisterComponent from "../components/deliveryPersonRegisterComponent";
 import DeliveryPersonLoginComponent from "../components/deliveryPersonLoginComponent";
-import CustomerRegisterPage from "./customerRegisterPage";
+import CustomerRegisterComponent from "../components/customerRegisterComponent";
+import CustomerLoginComponent from "../components/customerLoginComponent";
+import DeliveryPersonStack from "./deliveryPersonStack";
 
 // Import Navigation Container
 import { NavigationContainer } from "@react-navigation/native";
@@ -32,9 +34,21 @@ const DeliveryPersonRegisterPage = () => {
                     />
                     <Stack.Screen
                         name = "Customer Register"
-                        component = {CustomerRegisterPage}
+                        component = {CustomerRegisterComponent}
                         options = {{
                             header: () => null
+                        }}
+                    />
+                    <Stack.Screen
+                        name = "Customer Login"
+                        component = {CustomerLoginComponent}
+                        options = {{
+                            headerTitleStyle: {
+                                fontFamily: "PatuaOne-Regular"
+                            },
+                            headerStyle: {
+                                backgroundColor: "beige"
+                            }
                         }}
                     />
                     <Stack.Screen
@@ -67,6 +81,13 @@ const DeliveryPersonRegisterPage = () => {
 								backgroundColor: "beige"
 							}
 						}}
+                    />
+                    <Stack.Screen
+                        name = "Delivery Person Home"
+                        component = {DeliveryPersonStack}
+                        options = {{
+                            header: () => null
+                        }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

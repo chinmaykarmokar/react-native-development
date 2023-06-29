@@ -4,6 +4,7 @@ import React from "react";
 // Import components
 import CustomerLoginComponent from "../components/customerLoginComponent";
 import CustomerHomeComponent from "../components/customerHomeComponent";
+import CustomerHomeStack from "./customerHomeStack";
 
 // Import Navigation Container
 import { NavigationContainer } from "@react-navigation/native";
@@ -29,7 +30,7 @@ const CustomerLoginPage = () => {
                     />
                     <Stack.Screen
                         name = "Customer Home"
-                        component = {CustomerHomeComponent}
+                        component = {CustomerHomeStack}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

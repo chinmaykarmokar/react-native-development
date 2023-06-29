@@ -12,6 +12,27 @@ const deliveryPersonReducers = (state = initialState, action: any) => {
                 loading: false
             }
 
+        case "deliveryPersonLogin":
+            return {
+                ... state,
+                deliveryPersonLoginDetails: action.payload,
+                loading: false
+            }
+
+        case "deliveryPersonDetails":
+            return {
+                ... state,
+                deliveryPersonData: action.payload,
+                loading: false
+            }
+
+        case "completeOrder": 
+            return {
+                ... state,
+                completeOrderData: action.payload,
+                loading: false
+            }
+
         default:
             return state;
     }
