@@ -10,18 +10,22 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Import React Native components
 import { ScrollView, View, Text, Pressable, StyleSheet } from "react-native";
 
+// Import Loader
+import Loader from "./loaderComponent";
+
 // Import React Native Vector Icons
 import Icon from "react-native-vector-icons/FontAwesome5"
 
 // Import common functions
-import { fetchUserOrders } from "../commonFunctions/commonFunctions";
+import { fetchAllCartItemsAndOrders } from "../commonFunctions/commonFunctions";
 
 // Import react native vector icons
 import Ionicons from "react-native-vector-icons/Ionicons";
+import axios from "axios";
 
-const OrdersComponent = () => {
+const OrdersComponent = ({navigation}: any) => {
     const [token, setToken] = useState("");
-    const allUserOrders = useSelector((state: any) => {return state?.customers?.userSpecificOrder})
+    const allUserOrders = useSelector((state: any) => {return state?.customers?.userCartAndOrders?.orders});
 
     const dispatch = useDispatch();
 
@@ -50,55 +54,59 @@ const OrdersComponent = () => {
     }
 
     useEffect(() => {
-        fetchUserOrders(dispatch,config);
+        fetchAllCartItemsAndOrders(dispatch,config);
     })
 
-    
-    console.log("ORDERS", allUserOrders);
+    console.log(allUserOrders);
 
     return (
         <>
-            <ScrollView>
-                <View style = {styles.ordersHeader}>
-                    <Text style = {styles.ordersHeaderText}>
-                        <Icon name = "box" size = {40}/> Orders
-                    </Text>
-                </View>
-                {
-                    allUserOrders?.map((singleOrder: any, i: any) => {
-                        return (
-                            <View style = {styles.orderCards} key = {i}>
-                                <View style = {styles.singleOrderViewContainer}>
-                                    <Text style = {styles.iconLabel}>
-                                        <Ionicons name = "fast-food-outline" size = {30}/>
-                                    </Text>
-                                    <Text style = {styles.singleOrderDetailText}>
-                                        {singleOrder?.items}
-                                    </Text>
-                                </View>
-                                <View style = {styles.singleOrderViewContainer}>
-                                    <Text style = {styles.iconLabel}>
-                                        <Ionicons name = "pricetag-outline" size = {30}/>
-                                    </Text>
-                                    <Text style = {styles.singleOrderPriceDetail}>
-                                        ₹ {singleOrder?.price}
-                                    </Text>
-                                </View>
-                                <View>
-                                    <Pressable style = {styles.statusHighlighter}>
-                                        <Text style = {styles.statusIconLabel}>
-                                            <Icon name = "dot-circle" size = {25}/>
-                                        </Text>
-                                        <Text style = {styles.statusText}>
-                                            {singleOrder?.delivery_status}
-                                        </Text>
-                                    </Pressable>
-                                </View>                              
-                            </View>
-                        )
-                    }).reverse()
-                }
-            </ScrollView>
+            {
+                (!allUserOrders || allUserOrders == undefined) ? 
+                    <Loader/>
+                :
+                    <ScrollView>
+                        <View style = {styles.ordersHeader}>
+                            <Text style = {styles.ordersHeaderText}>
+                                <Icon name = "box" size = {40}/> Orders
+                            </Text>
+                        </View>
+                        {
+                            allUserOrders?.map((singleOrder: any, i: any) => {
+                                return (
+                                    <View style = {styles.orderCards} key = {i}>
+                                        <View style = {styles.singleOrderViewContainer}>
+                                            <Text style = {styles.iconLabel}>
+                                                <Ionicons name = "fast-food-outline" size = {30}/>
+                                            </Text>
+                                            <Text style = {styles.singleOrderDetailText}>
+                                                {singleOrder?.items}
+                                            </Text>
+                                        </View>
+                                        <View style = {styles.singleOrderViewContainer}>
+                                            <Text style = {styles.iconLabel}>
+                                                <Ionicons name = "pricetag-outline" size = {30}/>
+                                            </Text>
+                                            <Text style = {styles.singleOrderPriceDetail}>
+                                                ₹ {singleOrder?.price}
+                                            </Text>
+                                        </View>
+                                        <View>
+                                            <Pressable style = {styles.statusHighlighter}>
+                                                <Text style = {styles.statusIconLabel}>
+                                                    <Icon name = "dot-circle" size = {25}/>
+                                                </Text>
+                                                <Text style = {styles.statusText}>
+                                                    {singleOrder?.delivery_status}
+                                                </Text>
+                                            </Pressable>
+                                        </View>                              
+                                    </View>
+                                )
+                            }).reverse()
+                        }
+                    </ScrollView>
+            }
         </>
     )
 }

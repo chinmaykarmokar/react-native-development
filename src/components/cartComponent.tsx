@@ -5,7 +5,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Import common functions
-import { fetchAllCartItems, fetchCustomerDetails } from "../commonFunctions/commonFunctions";
+import { fetchCustomerDetails } from "../commonFunctions/commonFunctions";
+import { fetchAllCartItemsAndOrders } from "../commonFunctions/commonFunctions";
 
 // Import React Native components
 import { Alert, ScrollView, View, Text, Pressable, StyleSheet } from "react-native";
@@ -23,10 +24,14 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 // Import Axios
 import axios from "axios";
 
+// Import Loader
+import Loader from "./loaderComponent";
+
 const CartComponent = ({navigation}: any) => {
     const [token, setToken] = useState("");
     const customerData = useSelector((state: any) => {return state?.customers?.customerDetails});
-    const allCartItemDetails = useSelector((state: any) => {return state?.customers?.cartItemDetails});
+    const allCartItemDetails = useSelector((state: any) => {return state?.customers?.userCartAndOrders?.cart});
+    const x = useSelector((state: any) => {return state?.customers});
 
     const dispatch = useDispatch();
 
@@ -56,7 +61,7 @@ const CartComponent = ({navigation}: any) => {
 
     useEffect(() => {
         fetchCustomerDetails(dispatch, config); 
-        fetchAllCartItems(dispatch, config);
+        fetchAllCartItemsAndOrders(dispatch, config);
     })
 
     const increaseCartItemsHandler = async (burgerID: number, quantityOfBurger: number, newBurgerPrice: number, oldBurgerPrice: number) => {
@@ -177,15 +182,13 @@ const CartComponent = ({navigation}: any) => {
             })
     }
 
-    // console.log(customerData);
+    console.log("CART AND ORDERS", x);
 
     return (
         <>
             {
                 (!allCartItemDetails || allCartItemDetails == "undefined") ? 
-                    <>
-                        <Text>Loading...</Text>
-                    </>
+                   <Loader/>
                 :
                     <ScrollView>
                         <View style = {styles.cartHeader}>
@@ -265,7 +268,7 @@ const styles = StyleSheet.create({
     },
     cartCards: {
         backgroundColor: "beige",
-        height: 140,
+        height: "auto",
         elevation: 5,
         margin: 12.5,
         borderRadius: 20,

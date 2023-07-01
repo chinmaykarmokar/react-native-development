@@ -98,6 +98,13 @@ const App: React.FC = () => {
 									}}
 								/>			
 						}
+						{/* <Stack.Screen
+							name = "Landing Page"
+							component = {LandingPageComponent}
+							options = {{
+								header: () => null
+							}}
+						/>		 */}
 						<Stack.Screen
 							name = "Delivery Person Register"
 							component = {DeliveryPersonRegisterPage}

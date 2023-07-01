@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 // Import React Native Components
 import { Alert, ScrollView, View, Image, Pressable, Text, StyleSheet } from "react-native";
 
+// Import Loader
+import Loader from "./loaderComponent";
+
 // Import AsyncStorage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -29,6 +32,8 @@ const CustomerHomeComponent: React.FC = () => {
 
     const customerData = useSelector((state: any) => {return state?.customers?.customerDetails}); 
     const fullMenuData = useSelector((state: any) => {return state?.customers?.fullMenuDetails});
+    const x = useSelector((state: any) => {return state?.customers?.userSpecificOrder});
+    const y = useSelector((state: any) => {return state?.customers?.cartItemDetails});
 
     const getData = async () => {
         try {
@@ -105,11 +110,9 @@ const CustomerHomeComponent: React.FC = () => {
     return (
         <>
             {
-                (!customerData || !fullMenuData || customerData == "undefined" || fullMenuData == "undefined") 
+                (!customerData || !fullMenuData || customerData == undefined || fullMenuData == undefined) 
                 ? 
-                    <>
-                        <Text>Loading....</Text>
-                    </>
+                    <Loader/>
                 :
                     <ScrollView>
                         <View style = {styles.customerHeader}>

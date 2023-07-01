@@ -33,7 +33,7 @@ const LandingPageComponent = ({navigation}: any) => {
 
                 <Pressable style = {styles.aboutButton} onPress = {() => {navigation.navigate('About')}}>
                     <Text style = {styles.aboutButtonText}>
-                        <Icon name = "info-circle" size = {20} color = "#ff8c00"/> About Us
+                        <Icon name = "info-circle" size = {20} color = "#ff8c00"/> About
                     </Text>
                 </Pressable>
 
@@ -41,6 +41,12 @@ const LandingPageComponent = ({navigation}: any) => {
                     style = {styles.homeImageStyle}
                     source = {burpgerHomeImage}
                 />
+
+                <View style = {styles.copyrightView}>
+                    <Text style = {styles.copyrightText}>
+                        Copyright 2023, Burpger by Chinmay
+                    </Text>
+                </View>
             </ScrollView>
         </View>
     )
@@ -105,6 +111,15 @@ const styles = StyleSheet.create({
         height: 300,
         width: 300,
         margin: 30
+    },
+    copyrightView: {
+        padding: 10
+    },
+    copyrightText: {
+        textAlign: "center",
+        color: "#000",
+        fontFamily: "PatuaOne-Regular",
+        fontSize: 15
     }
 })
 
