@@ -6,6 +6,7 @@ import CustomerHomeComponent from "../components/customerHomeComponent";
 import CartComponent from "../components/cartComponent";
 import OrdersComponent from "../components/ordersComponent";
 import CustomerProfilePageComponent from "../components/customerProfileComponent";
+import OrdersStack from "./ordersStack";
 
 // Import Tab Navigator
 import { NavigationContainer } from "@react-navigation/native";

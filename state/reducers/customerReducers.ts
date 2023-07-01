@@ -1,77 +1,79 @@
-const initialState = {
+let initialState: any = {
     customers: [],
     loading: true
 }
 
-const customerReducers = (state = initialState, action: any) => {
+let customerReducers = (state = initialState, action: any) => {
     switch (action.type) {
         case 'customerRegister': 
             return {
                 ... state,
-                customerRegisterData: action.payload,
-                loading: false
+                customerRegisterData: action.payload
             }
 
         case "customerLogin": 
             return {
                 ... state,
-                customerLoginData: action.payload,
-                loading: false
+                customerLoginData: action.payload
             }
 
         case "customerDetails":
             return {
                 ... state,
-                customerDetails: action.payload,
-                loading: false
+                customerDetails: action.payload
             }
 
         case "fullMenu": 
             return {
                 ... state,
-                fullMenuDetails: action.payload,
-                loading: false
+                fullMenuDetails: action.payload
             }
 
         case "addToCart":
             return {
                 ... state,
-                addToCartData: action.payload,
-                loading: false
+                addToCartData: action.payload
             }
 
-        case "getCartItems": 
+        case "getCartItems":
+            // state["cartItemDetails"] = action.payload 
+
             return {
                 ... state,
                 cartItemDetails: action.payload,
-                loading: false
+                // loading: false
             }
 
         case "increaseCartItems": 
             return {
                 ... state,
-                increaseItems: action.payload,
-                loading: false
+                increaseItems: action.payload
             }
 
         case "decreaseCartItems":
             return {
                 ... state,
-                decreaseItems: action.payload,
-                loading: false
+                decreaseItems: action.payload
             }
 
         case "placeOrder":
             return {
                 ... state,
-                orderDetails: action.payload,
-                loading: false
+                orderDetails: action.payload
             }
 
         case "getUserSpecificOrders":
             return {
                 ... state,
                 userSpecificOrder: action.payload,
+                loading: false
+            }
+
+        case "getCartItemsAndOrders":
+            return {
+                ... state,
+                userCartAndOrders: action.payload,
+                // userOrders: action.ordersDataPayload,
                 loading: false
             }
             

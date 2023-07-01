@@ -1,69 +1,76 @@
-export const customerRegister = (data: any) => {
+export let customerRegister = (data: any) => {
     return {
         type: 'customerRegister',
         payload: data
     }
 }
 
-export const customerLogin = (data: any) => {
+export let customerLogin = (data: any) => {
     return {
         type: "customerLogin",
         payload: data
     }
 }
 
-export const customerDetails = (data: any) => {
+export let customerDetails = (data: any) => {
     return {
         type: "customerDetails",
         payload: data
     }
 }
 
-export const fullMenu = (data: any) => {
+export let fullMenu = (data: any) => {
     return {
         type: "fullMenu",
         payload: data
     }
 }
 
-export const addToCart = (data: any) => {
+export let addToCart = (data: any) => {
     return {
         type: "addToCart",
         payload: data
     }
 }
 
-export const getCartItems = (data: any) => {
+export let getCartItems = (data: any, userPayload: any) => {
     return {
         type: "getCartItems",
         payload: data
     }
 }
 
-export const increaseCartItems = (data: any) => {
+export let increaseCartItems = (data: any) => {
     return {
         type: "increaseCartItems",
         payload: data
     }
 }
 
-export const decreaseCartItems = (data: any) => {
+export let decreaseCartItems = (data: any) => {
     return {
         type: "decreaseCartItems",
         payload: data
     }
 }
 
-export const placeOrder = (data: any) => {
+export let placeOrder = (data: any) => {
     return {
         type: "placeOrder",
         payload: data
     }
 }
 
-export const getUserSpecificOrders = (data: any) => {
+export let getUserSpecificOrders = (data: any) => {
     return {
         type: "getUserSpecificOrders",
+        payload: data
+    }
+}
+
+export let getCartItemsAndOrders = (data: any) => {
+    return {
+        type: "getCartItemsAndOrders",
         payload: data
     }
 }

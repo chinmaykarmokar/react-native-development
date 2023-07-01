@@ -13,6 +13,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Import react native components
 import { ScrollView, View, Text, Pressable, StyleSheet } from "react-native";
 
+// Import Loader
+import Loader from "./loaderComponent";
+
 // Import react native vector icons
 import Icon from "react-native-vector-icons/FontAwesome5";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -68,12 +71,8 @@ const DeliveryPersonProfile = ({navigation}: any) => {
     return (
         <>
             {
-                (!getDeliveryPerson || getDeliveryPerson == "undefined") ? 
-                    <>
-                        <View>
-                            <Text>Loading...</Text>
-                        </View>
-                    </>
+                (!getDeliveryPerson || getDeliveryPerson == undefined) ? 
+                    <Loader/>
                 :
                     <ScrollView>
                         <View style = {styles.profileHeader}>

@@ -9,6 +9,7 @@ import DeliveryPersonRegisterComponent from "../components/deliveryPersonRegiste
 import DeliveryPersonLoginComponent from "../components/deliveryPersonLoginComponent";
 import CustomerRegisterComponent from "../components/customerRegisterComponent";
 import CustomerLoginComponent from "../components/customerLoginComponent";
+import AboutPageComponent from "../components/aboutComponent";
 
 // Import Navigator
 import { NavigationContainer } from "@react-navigation/native";
@@ -83,6 +84,18 @@ const DeliveryPersonStack = () => {
 								backgroundColor: "beige"
 							}
 						}}
+                    />
+                    <Stack.Screen
+                        name = "About"
+                        component = {AboutPageComponent}
+                        options = {{
+                            headerTitleStyle: {
+                                fontFamily: "PatuaOne-Regular"
+                            },
+                            headerStyle: {
+                                backgroundColor: "beige"
+                            }
+                        }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

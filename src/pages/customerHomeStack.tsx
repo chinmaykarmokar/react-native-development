@@ -9,6 +9,7 @@ import CustomerRegisterComponent from "../components/customerRegisterComponent";
 import CustomerLoginComponent from "../components/customerLoginComponent";
 import CustomerTabsPage from "./customerHomeTabs";
 import DeliveryPersonTabs from "./deliveryPersonTabs";
+import AboutPageComponent from "../components/aboutComponent";
 
 // Import Tab Navigator
 import { NavigationContainer } from "@react-navigation/native";
@@ -83,6 +84,18 @@ const CustomerHomeStack = () => {
 								backgroundColor: "beige"
 							}
 						}}
+                    />
+                    <Stack.Screen
+                        name = "About"
+                        component = {AboutPageComponent}
+                        options = {{
+                            headerTitleStyle: {
+                                fontFamily: "PatuaOne-Regular"
+                            },
+                            headerStyle: {
+                                backgroundColor: "beige"
+                            }
+                        }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 // Import React Native components
 import { Alert, ScrollView, View, Text, Pressable, StyleSheet } from "react-native";
 
+// Import Laoder
+import Loader from "./loaderComponent";
+
 // Import React Redux hooks
 import { useSelector, useDispatch } from "react-redux";
 
@@ -105,12 +108,8 @@ const DeliveryPersonHomeComponent = ({navigation}: any) => {
     return (
         <>
             {
-                (!getDeliveryPerson || getDeliveryPerson == "undefined") ? 
-                    <>
-                        <View>
-                            <Text>Loading...</Text>
-                        </View>
-                    </>
+                (!getDeliveryPerson || getDeliveryPerson == undefined) ? 
+                    <Loader/>
                 :
                     <ScrollView>
                         <View style = {styles.ordersAssignedHeader}>
